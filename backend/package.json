@@ -1,0 +1,32 @@
+{
+  "name": "agrisense-backend",
+  "version": "1.0.0",
+  "description": "Agricultural AI Backend - Crop Analysis & Spoilage Prediction",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "agriculture",
+    "ai",
+    "crop",
+    "ml"
+  ],
+  "author": "AgriSense Team",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.19.2",
+    "form-data": "^4.0.0",
+    "mongoose": "^8.3.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
