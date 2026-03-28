@@ -3,14 +3,21 @@ import { useLang } from "../context/LanguageContext";
 import { useApp } from "../context/AppContext";
 import { getPestRisk } from "../services/api";
 
-const CROPS = ["Tomato", "Potato", "Mango", "Onion", "Wheat", "Rice"];
+const CROPS = [
+  "crop_tomato",
+  "crop_potato",
+  "crop_mango",
+  "crop_onion",
+  "crop_wheat",
+  "crop_rice",
+];
 const EMOJIS = {
-  Tomato: "🍅",
-  Potato: "🥔",
-  Mango: "🥭",
-  Onion: "🧅",
-  Wheat: "🌾",
-  Rice: "🍚",
+  crop_tomato: "🍅",
+  crop_potato: "🥔",
+  crop_mango: "🥭",
+  crop_onion: "🧅",
+  crop_wheat: "🌾",
+  crop_rice: "🍚",
 };
 
 const RISK_CFG = {
@@ -84,7 +91,7 @@ export default function PestRiskPage() {
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
             >
-              {EMOJIS[c]} {c}
+              {EMOJIS[c]} {t(c)}
             </button>
           ))}
         </div>

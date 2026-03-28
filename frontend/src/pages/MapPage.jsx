@@ -27,9 +27,9 @@ const colorIcon = (color) =>
 const ICONS = { user: "red", mandi: "green", cold_storage: "blue" };
 
 const TABS = [
-  { value: "all", label: "📍 All" },
-  { value: "mandi", label: "🏪 Mandis" },
-  { value: "cold_storage", label: "❄️ Cold Storage" },
+  { value: "all", labelKey: "tab_all" },
+  { value: "mandi", labelKey: "tab_mandi" },
+  { value: "cold_storage", labelKey: "tab_cold_storage" },
 ];
 
 export default function MapPage() {
@@ -87,7 +87,7 @@ export default function MapPage() {
                   : "bg-white text-gray-600 border border-gray-200 hover:border-primary"
               }`}
           >
-            {tb.label}
+            {t(tb.labelKey)}
           </button>
         ))}
       </div>

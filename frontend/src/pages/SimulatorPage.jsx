@@ -3,8 +3,20 @@ import { useLang } from "../context/LanguageContext";
 import { useApp } from "../context/AppContext";
 import { runSimulation } from "../services/api";
 
-const CROPS = ["Tomato", "Potato", "Mango", "Onion", "Wheat", "Rice"];
-const FRESHNESS = ["Fresh", "Moderate", "Spoiled"];
+const CROPS = [
+  "crop_tomato",
+  "crop_potato",
+  "crop_mango",
+  "crop_onion",
+  "crop_wheat",
+  "crop_rice",
+];
+
+const FRESHNESS = [
+  "freshness_fresh",
+  "freshness_moderate",
+  "freshness_spoiled",
+];
 const STORAGE = [
   { value: "room", icon: "🏠", labelKey: "room" },
   { value: "cold", icon: "❄️", labelKey: "cold" },
@@ -80,8 +92,8 @@ export default function SimulatorPage() {
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm
                            focus:outline-none focus:ring-2 focus:ring-primary"
               >
-                {CROPS.map((c) => (
-                  <option key={c}>{c}</option>
+                {CROPS.map((crop) => (
+                  <option key={crop}>{t(crop)}</option>
                 ))}
               </select>
             </div>
@@ -96,7 +108,7 @@ export default function SimulatorPage() {
                            focus:outline-none focus:ring-2 focus:ring-primary"
               >
                 {FRESHNESS.map((f) => (
-                  <option key={f}>{f}</option>
+                  <option key={f}>{t(f)}</option>
                 ))}
               </select>
             </div>

@@ -7,36 +7,36 @@ const FEATURES = [
     icon: "📷",
     path: "/analyze",
     bg: "bg-green-50  border-green-200",
-    title: "Crop Analysis",
-    desc: "Instantly identify crop type, freshness & spoilage timeline from a single photo.",
+    title: "feature_crop_title",
+    desc: "feature_crop_desc",
   },
   {
     icon: "🔬",
     path: "/simulate",
     bg: "bg-blue-50   border-blue-200",
-    title: "What-If Simulator",
-    desc: "Adjust temperature, humidity & storage type to model exactly how shelf life changes.",
+    title: "feature_simulator_title",
+    desc: "feature_simulator_desc",
   },
   {
     icon: "🗺️",
     path: "/map",
     bg: "bg-yellow-50 border-yellow-200",
-    title: "Market Map",
-    desc: "Locate nearby mandis and cold storage facilities on an interactive map.",
+    title: "feature_map_title",
+    desc: "feature_map_desc",
   },
   {
     icon: "📈",
     path: "/market",
     bg: "bg-purple-50 border-purple-200",
-    title: "Price Forecast",
-    desc: "14-day AI price predictions to help you decide the perfect day to sell.",
+    title: "feature_price_title",
+    desc: "feature_price_desc",
   },
   {
     icon: "🐛",
     path: "/pest-risk",
     bg: "bg-red-50    border-red-200",
-    title: "Pest Risk Alerts",
-    desc: "Real-time pest probability scores based on local weather conditions.",
+    title: "feature_pest_title",
+    desc: "feature_pest_desc",
   },
 ];
 
@@ -44,20 +44,20 @@ const HOW_IT_WORKS = [
   {
     step: "1",
     icon: "📷",
-    title: "Upload Photo",
-    desc: "Take a photo or upload from gallery.",
+    titleKey: "step1_title",
+    descKey: "step1_desc",
   },
   {
     step: "2",
     icon: "🤖",
-    title: "AI Analysis",
-    desc: "ML model identifies crop & freshness.",
+    titleKey: "step2_title",
+    descKey: "step2_desc",
   },
   {
     step: "3",
     icon: "💡",
-    title: "Get Recommendations",
-    desc: "Storage tips, market prices & more.",
+    titleKey: "step3_title",
+    descKey: "step3_desc",
   },
 ];
 
@@ -86,7 +86,7 @@ export default function HomePage() {
       {/* Feature Grid */}
       <div>
         <h2 className="text-2xl font-bold text-gray-800 mb-5 text-center">
-          What can AgriSense do?
+          {t("features_title")}
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {FEATURES.map((f) => (
@@ -97,9 +97,9 @@ export default function HomePage() {
             >
               <div className="text-4xl mb-3">{f.icon}</div>
               <h3 className="font-bold text-gray-800 text-lg mb-2">
-                {f.title}
+                {t(f.title)}
               </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{f.desc}</p>
+              <p className="text-gray-600 text-sm leading-relaxed">{t(f.desc)}</p>
             </button>
           ))}
         </div>
@@ -108,7 +108,7 @@ export default function HomePage() {
       {/* How it Works */}
       <div className="card">
         <h2 className="text-2xl font-bold text-gray-800 mb-8 text-center">
-          How It Works
+          {t("how_it_works")}
         </h2>
         <div className="grid sm:grid-cols-3 gap-8 text-center">
           {HOW_IT_WORKS.map((s, i) => (
@@ -123,8 +123,8 @@ export default function HomePage() {
                 {s.step}
               </div>
               <div className="text-3xl">{s.icon}</div>
-              <h3 className="font-semibold text-gray-800">{s.title}</h3>
-              <p className="text-gray-500 text-sm">{s.desc}</p>
+              <h3 className="font-semibold text-gray-800">{t(s.titleKey)}</h3>
+              <p className="text-gray-500 text-sm">{t(s.descKey)}</p>
             </div>
           ))}
         </div>
