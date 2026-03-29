@@ -1,0 +1,49 @@
+{
+  "model_name": "LightGBM",
+  "training_date_range": "2019-01-01 to 2022-12-31",
+  "test_date_range": "2024-01-01 to 2024-12-31",
+  "test_f1_micro": 0.6538,
+  "test_hamming_loss": 0.1126,
+  "test_roc_auc": 0.7914,
+  "states_covered": [
+    "Punjab",
+    "Haryana",
+    "Uttar Pradesh",
+    "Maharashtra",
+    "Uttarakhand"
+  ],
+  "crops_covered": [
+    "Rice",
+    "Wheat",
+    "Maize",
+    "Tomato",
+    "Potato",
+    "Onion",
+    "Cotton",
+    "Sugarcane",
+    "Chickpea",
+    "Sweetcorn",
+    "Garlic",
+    "Carrot",
+    "Capsicum",
+    "Cabbage"
+  ],
+  "forecast_window_days": 7,
+  "feature_count": 24,
+  "class_count": 12,
+  "pest_classes": [
+    "Aphids",
+    "Whitefly",
+    "Stem_Borer",
+    "Fall_Armyworm",
+    "Brown_Planthopper",
+    "Thrips",
+    "Leaf_Miner",
+    "Spider_Mites",
+    "Diamondback_Moth",
+    "Early_Blight",
+    "Powdery_Mildew",
+    "Cutworm"
+  ],
+  "created_at": "2026-03-27T13:20:47.282784"
+}

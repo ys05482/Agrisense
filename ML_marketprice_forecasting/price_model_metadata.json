@@ -1,0 +1,358 @@
+{
+  "model_type": "XGBoostRegressor",
+  "forecast_horizon_days": 7,
+  "training_date_range": "2019-01-01 to 2024-12-31",
+  "test_date_range": "2025-01-01 to 2026-12-31",
+  "supported_crops": [
+    "Banana",
+    "Apple",
+    "Pear",
+    "Grapes",
+    "Orange",
+    "Kiwi",
+    "Watermelon",
+    "Pomegranate",
+    "Pineapple",
+    "Mango",
+    "Cucumber",
+    "Carrot",
+    "Capsicum",
+    "Onion",
+    "Potato",
+    "Lemon",
+    "Tomato",
+    "Radish",
+    "Beetroot",
+    "Cabbage",
+    "Lettuce",
+    "Spinach",
+    "Soybean",
+    "Cauliflower",
+    "Bell Pepper",
+    "Chilli Pepper",
+    "Turnip",
+    "Corn",
+    "Sweet Corn",
+    "Sweet Potato",
+    "Paprika",
+    "Jalapeno",
+    "Ginger",
+    "Garlic",
+    "Peas",
+    "Eggplant"
+  ],
+  "supported_states": [
+    "Punjab",
+    "Haryana",
+    "Uttar Pradesh",
+    "Andhra Pradesh",
+    "Uttarakhand",
+    "Bihar",
+    "Maharashtra",
+    "Madhya Pradesh"
+  ],
+  "n_features": 19,
+  "feature_names": [
+    "Modal_Price",
+    "lag_30",
+    "commodity_enc",
+    "price_spread",
+    "vol_14",
+    "vol_7",
+    "mom_7",
+    "mom_14",
+    "mom_30",
+    "state_enc",
+    "rel_90",
+    "month",
+    "rel_30",
+    "sin_month",
+    "cos_month",
+    "is_kharif",
+    "is_rabi",
+    "is_zaid",
+    "day_of_week"
+  ],
+  "best_hyperparams": {
+    "n_estimators": 1000,
+    "max_depth": 5,
+    "learning_rate": 0.02,
+    "subsample": 0.8,
+    "colsample_bytree": 0.75,
+    "min_child_weight": 10,
+    "reg_alpha": 0.3,
+    "reg_lambda": 2.0,
+    "gamma": 1.5
+  },
+  "overall_test_metrics": {
+    "MAE": 428.99,
+    "RMSE": 822.06,
+    "MAPE": 20.32,
+    "R2": 0.8996,
+    "Dir_Acc": 44.24
+  },
+  "per_crop_metrics": [
+    {
+      "Model": "Soybean",
+      "MAE": 181.61,
+      "RMSE": 283.76,
+      "MSE": 80520.16,
+      "MAPE (%)": 4.45,
+      "R2": 0.66,
+      "Dir Accuracy (%)": 39.21
+    },
+    {
+      "Model": "Corn",
+      "MAE": 105.06,
+      "RMSE": 172.8,
+      "MSE": 29859.19,
+      "MAPE (%)": 5.25,
+      "R2": 0.56,
+      "Dir Accuracy (%)": 43.75
+    },
+    {
+      "Model": "Potato",
+      "MAE": 123.72,
+      "RMSE": 187.91,
+      "MSE": 35308.62,
+      "MAPE (%)": 10.97,
+      "R2": 0.77,
+      "Dir Accuracy (%)": 45.51
+    },
+    {
+      "Model": "Chilli Pepper",
+      "MAE": 372.91,
+      "RMSE": 558.6,
+      "MSE": 312035.06,
+      "MAPE (%)": 10.99,
+      "R2": 0.68,
+      "Dir Accuracy (%)": 43.43
+    },
+    {
+      "Model": "Ginger",
+      "MAE": 443.16,
+      "RMSE": 705.72,
+      "MSE": 498046.86,
+      "MAPE (%)": 11.0,
+      "R2": 0.52,
+      "Dir Accuracy (%)": 51.09
+    },
+    {
+      "Model": "Pomegranate",
+      "MAE": 781.2,
+      "RMSE": 1170.28,
+      "MSE": 1369561.52,
+      "MAPE (%)": 11.03,
+      "R2": 0.64,
+      "Dir Accuracy (%)": 45.13
+    },
+    {
+      "Model": "Pear",
+      "MAE": 334.16,
+      "RMSE": 816.33,
+      "MSE": 666396.67,
+      "MAPE (%)": 11.18,
+      "R2": 0.59,
+      "Dir Accuracy (%)": 38.25
+    },
+    {
+      "Model": "Eggplant",
+      "MAE": 246.08,
+      "RMSE": 424.24,
+      "MSE": 179976.99,
+      "MAPE (%)": 14.47,
+      "R2": 0.61,
+      "Dir Accuracy (%)": 45.06
+    },
+    {
+      "Model": "Apple",
+      "MAE": 753.83,
+      "RMSE": 1222.41,
+      "MSE": 1494295.04,
+      "MAPE (%)": 14.5,
+      "R2": 0.76,
+      "Dir Accuracy (%)": 45.64
+    },
+    {
+      "Model": "Tomato",
+      "MAE": 245.59,
+      "RMSE": 376.76,
+      "MSE": 141949.72,
+      "MAPE (%)": 14.94,
+      "R2": 0.81,
+      "Dir Accuracy (%)": 50.0
+    },
+    {
+      "Model": "Banana",
+      "MAE": 281.41,
+      "RMSE": 464.4,
+      "MSE": 215670.2,
+      "MAPE (%)": 15.07,
+      "R2": 0.68,
+      "Dir Accuracy (%)": 49.49
+    },
+    {
+      "Model": "Garlic",
+      "MAE": 931.28,
+      "RMSE": 1480.68,
+      "MSE": 2192400.93,
+      "MAPE (%)": 15.09,
+      "R2": 0.72,
+      "Dir Accuracy (%)": 49.77
+    },
+    {
+      "Model": "Pineapple",
+      "MAE": 501.41,
+      "RMSE": 709.51,
+      "MSE": 503399.72,
+      "MAPE (%)": 15.15,
+      "R2": 0.33,
+      "Dir Accuracy (%)": 39.26
+    },
+    {
+      "Model": "Carrot",
+      "MAE": 236.21,
+      "RMSE": 346.22,
+      "MSE": 119868.01,
+      "MAPE (%)": 15.39,
+      "R2": 0.68,
+      "Dir Accuracy (%)": 47.5
+    },
+    {
+      "Model": "Peas",
+      "MAE": 672.4,
+      "RMSE": 1008.01,
+      "MSE": 1016081.53,
+      "MAPE (%)": 16.48,
+      "R2": 0.85,
+      "Dir Accuracy (%)": 49.64
+    },
+    {
+      "Model": "Cabbage",
+      "MAE": 143.18,
+      "RMSE": 225.17,
+      "MSE": 50703.31,
+      "MAPE (%)": 16.48,
+      "R2": 0.74,
+      "Dir Accuracy (%)": 45.67
+    },
+    {
+      "Model": "Cauliflower",
+      "MAE": 222.28,
+      "RMSE": 319.82,
+      "MSE": 102283.47,
+      "MAPE (%)": 16.56,
+      "R2": 0.86,
+      "Dir Accuracy (%)": 45.21
+    },
+    {
+      "Model": "Watermelon",
+      "MAE": 260.83,
+      "RMSE": 376.14,
+      "MSE": 141477.68,
+      "MAPE (%)": 17.49,
+      "R2": 0.76,
+      "Dir Accuracy (%)": 41.32
+    },
+    {
+      "Model": "Lemon",
+      "MAE": 599.74,
+      "RMSE": 881.29,
+      "MSE": 776671.92,
+      "MAPE (%)": 17.55,
+      "R2": 0.78,
+      "Dir Accuracy (%)": 43.14
+    },
+    {
+      "Model": "Orange",
+      "MAE": 760.24,
+      "RMSE": 1059.38,
+      "MSE": 1122284.61,
+      "MAPE (%)": 19.7,
+      "R2": 0.53,
+      "Dir Accuracy (%)": 36.68
+    },
+    {
+      "Model": "Onion",
+      "MAE": 175.66,
+      "RMSE": 266.76,
+      "MSE": 71158.99,
+      "MAPE (%)": 21.3,
+      "R2": 0.8,
+      "Dir Accuracy (%)": 45.65
+    },
+    {
+      "Model": "Beetroot",
+      "MAE": 367.07,
+      "RMSE": 527.0,
+      "MSE": 277734.18,
+      "MAPE (%)": 23.39,
+      "R2": 0.47,
+      "Dir Accuracy (%)": 34.24
+    },
+    {
+      "Model": "Grapes",
+      "MAE": 1403.06,
+      "RMSE": 2107.28,
+      "MSE": 4440613.18,
+      "MAPE (%)": 23.78,
+      "R2": 0.55,
+      "Dir Accuracy (%)": 39.24
+    },
+    {
+      "Model": "Sweet Potato",
+      "MAE": 458.84,
+      "RMSE": 618.18,
+      "MSE": 382143.34,
+      "MAPE (%)": 24.78,
+      "R2": 0.38,
+      "Dir Accuracy (%)": 32.96
+    },
+    {
+      "Model": "Turnip",
+      "MAE": 232.33,
+      "RMSE": 308.27,
+      "MSE": 95028.14,
+      "MAPE (%)": 31.23,
+      "R2": 0.52,
+      "Dir Accuracy (%)": 29.91
+    },
+    {
+      "Model": "Mango",
+      "MAE": 1245.56,
+      "RMSE": 2034.05,
+      "MSE": 4137365.99,
+      "MAPE (%)": 33.82,
+      "R2": 0.58,
+      "Dir Accuracy (%)": 39.51
+    },
+    {
+      "Model": "Radish",
+      "MAE": 540.35,
+      "RMSE": 768.83,
+      "MSE": 591094.6,
+      "MAPE (%)": 40.55,
+      "R2": -0.05,
+      "Dir Accuracy (%)": 8.62
+    },
+    {
+      "Model": "Spinach",
+      "MAE": 156.82,
+      "RMSE": 228.82,
+      "MSE": 52358.58,
+      "MAPE (%)": 72.5,
+      "R2": 0.78,
+      "Dir Accuracy (%)": 49.48
+    },
+    {
+      "Model": "Capsicum",
+      "MAE": 389.0,
+      "RMSE": 569.4,
+      "MSE": 324214.33,
+      "MAPE (%)": 82.9,
+      "R2": 0.74,
+      "Dir Accuracy (%)": 47.61
+    }
+  ],
+  "training_timestamp": "2026-03-28T05:52:06.480300"
+}
