@@ -1,18 +1,18 @@
-const express = require('express');
-const router  = express.Router();
-const multer  = require('multer');
-const axios   = require('axios');
-const path    = require('path');
-const fs      = require('fs');
-const FormData = require('form-data');
-const { Analysis } = require('../models');
+const express = require("express");
+const router = express.Router();
+const multer = require("multer");
+const axios = require("axios");
+const path = require("path");
+const fs = require("fs");
+const FormData = require("form-data");
+const { Analysis } = require("../models");
 
-const ML_SERVICE_URL = process.env.ML_SERVICE_URL || 'http://localhost:5001';
+const ML_SERVICE_URL = process.env.ML_SERVICE_URL || "http://localhost:5001";
 
 // ── Multer config ─────────────────────────────────────────────────────
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const dir = path.join(__dirname, '../uploads');
+    const dir = path.join(__dirname, "../uploads");
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     cb(null, dir);
   },
@@ -28,84 +28,92 @@ const upload = multer({
   fileFilter: (req, file, cb) => {
     const allowed = /jpeg|jpg|png|webp/i;
     if (allowed.test(path.extname(file.originalname))) cb(null, true);
-    else cb(new Error('Only JPG, PNG, WebP images allowed'));
+    else cb(new Error("Only JPG, PNG, WebP images allowed"));
   },
 });
 
 // ── POST /api/analyze ─────────────────────────────────────────────────
-router.post('/', upload.single('image'), async (req, res) => {
+router.post("/", upload.single("image"), async (req, res) => {
   try {
     if (!req.file && !req.body.image_base64) {
-      return res.status(400).json({ error: 'No image provided' });
+      return res.status(400).json({ error: "No image provided" });
     }
 
-    const { storage_type = 'room_temp', temperature, humidity, city, lat, lon } = req.body;
+    const {
+      storage_type = "room_temp",
+      temperature,
+      humidity,
+      city,
+      lat,
+      lon,
+    } = req.body;
 
     // Fetch weather if lat/lon provided but no temp/humidity
     let temp = temperature ? parseFloat(temperature) : 28.0;
-    let hum  = humidity    ? parseFloat(humidity)    : 65.0;
-    let cityName = city || 'Unknown';
+    let hum = humidity ? parseFloat(humidity) : 65.0;
+    let cityName = city || "Unknown";
 
     if (lat && lon && (!temperature || !humidity)) {
       try {
         const wResp = await axios.get(
           `http://api.openweathermap.org/data/2.5/weather`,
-          { params: { lat, lon, appid: process.env.OPENWEATHER_API_KEY, units: 'metric' }, timeout: 5000 }
+          {
+            params: {
+              lat,
+              lon,
+              appid: process.env.OPENWEATHER_API_KEY,
+              units: "metric",
+            },
+            timeout: 5000,
+          },
         );
-        temp     = wResp.data.main.temp;
-        hum      = wResp.data.main.humidity;
+        temp = wResp.data.main.temp;
+        hum = wResp.data.main.humidity;
         cityName = wResp.data.name || cityName;
       } catch (e) {
-        console.warn('Weather fetch failed, using defaults:', e.message);
+        console.warn("Weather fetch failed, using defaults:", e.message);
       }
     }
 
-    // ── Call ML microservice ────────────────────────────────────────
+    // ── Call ML microservice (UNIFIED JSON APPROACH) ──────────────────
     let mlResult;
+    let imageBase64 = req.body.image_base64;
 
+    // If file was uploaded, convert to base64
     if (req.file) {
-      // Send as multipart form
-      const form = new FormData();
-      form.append('image', fs.createReadStream(req.file.path));
-      form.append('storage_type', storage_type);
-      form.append('temperature', String(temp));
-      form.append('humidity',    String(hum));
-      form.append('city',        cityName);
-
-      const mlResp = await axios.post(
-        `${ML_SERVICE_URL}/predict/image`,
-        form,
-        { headers: form.getHeaders(), timeout: 30000 }
-      );
-      mlResult = mlResp.data;
-    } else {
-      // Send as JSON base64
-      const mlResp = await axios.post(
-        `${ML_SERVICE_URL}/predict/image`,
-        {
-          image_base64: req.body.image_base64,
-          storage_type, temperature: temp, humidity: hum, city: cityName
-        },
-        { timeout: 30000 }
-      );
-      mlResult = mlResp.data;
+      imageBase64 = fs.readFileSync(req.file.path, { encoding: "base64" });
+      // Optional: Delete the file after reading to save space
+      fs.unlinkSync(req.file.path);
     }
+
+    const mlResp = await axios.post(
+      `${ML_SERVICE_URL}/predict/image`,
+      {
+        image: imageBase64, // Standardize key as 'image'
+        storage_type,
+        temperature: temp,
+        humidity: hum,
+        city: cityName,
+      },
+      { timeout: 30000, headers: { "Content-Type": "application/json" } },
+    );
+    mlResult = mlResp.data.prediction; // Note: accessing the 'prediction' object from your Flask response
 
     // ── Save to MongoDB ─────────────────────────────────────────────
     const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
     const saved = await Analysis.create({
-      crop:               mlResult.crop,
-      is_fresh:           mlResult.is_fresh,
-      freshness_score:    mlResult.freshness_score,
-      freshness_percent:  mlResult.freshness_percent,
+      crop: mlResult.crop,
+      is_fresh: mlResult.is_fresh,
+      freshness_score: mlResult.freshness_score,
+      freshness_percent: mlResult.freshness_percent,
       predicted_spoilage: mlResult.predicted_spoilage,
-      spoilage_confidence:mlResult.spoilage_confidence,
-      days_estimate:      mlResult.days_estimate,
+      spoilage_confidence: mlResult.spoilage_confidence,
+      days_estimate: mlResult.days_estimate,
       storage_type,
       temperature: temp,
-      humidity:    hum,
-      city:        cityName,
-      image_url:   imageUrl,
+      humidity: hum,
+      city: cityName,
+      image_url: imageUrl,
     });
 
     return res.json({
@@ -114,12 +122,12 @@ router.post('/', upload.single('image'), async (req, res) => {
       ...mlResult,
       image_url: imageUrl,
     });
-
   } catch (err) {
-    console.error('Analyze error:', err.message);
-    if (err.code === 'ECONNREFUSED') {
+    console.error("Analyze error:", err.message);
+    if (err.code === "ECONNREFUSED") {
       return res.status(503).json({
-        error: 'ML service unavailable. Make sure python ml_service.py is running on port 5001.'
+        error:
+          "ML service unavailable. Make sure python ml_service.py is running on port 5001.",
       });
     }
     return res.status(500).json({ error: err.message });

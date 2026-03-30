@@ -13,6 +13,7 @@ const pricesRoutes = require("./routes/prices");
 const pestRoutes = require("./routes/pest");
 const translateRoutes = require("./routes/translate");
 const historyRoutes = require("./routes/history");
+const mandiRoutes = require("./routes/mandiRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -53,6 +54,7 @@ app.use("/api/prices", pricesRoutes);
 app.use("/api/pest", pestRoutes);
 app.use("/api/translate", translateRoutes);
 app.use("/api/history", historyRoutes);
+app.use("/api/mandiRoutes", mandiRoutes);
 
 // ── Health Check ─────────────────────────────────────────────────────
 app.get("/api/health", (req, res) => {
